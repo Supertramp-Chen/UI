@@ -1,0 +1,11 @@
+selenium
+pytest
+allure-pytest
+pytest-xdist
+pytest-rerunfailures
+pytest-ordering
+pillow
+ddddocr
+pyyaml
+requests
+opencv-python
