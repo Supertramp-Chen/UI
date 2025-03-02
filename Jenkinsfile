@@ -1,7 +1,7 @@
 pipeline {
-    environment {
-        PATH = "/usr/local/bin:"
-    }
+//     environment {
+//         PATH = "/usr/local/bin:"
+//     }
     agent {
         docker {
             image 'python:3.8'  // 运行 Python 3.8 Docker 镜像
