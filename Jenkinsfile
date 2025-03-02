@@ -1,51 +1,43 @@
 pipeline {
-    agent any
+    agent { label 'master' }  // 让 Jenkins 任务只在当前服务器（Master 节点）运行
 
-    environment {
-        REPORT_DIR = "allure-results"
-    }
 
     stages {
-//         stage('拉取代码') {
-//             steps {
-//                 git branch: 'main', url: 'https://github.com/example/api-test.git'
-//             }
-//         }
-//
-//         stage('启动测试环境') {
-//             steps {
-//                 sh 'docker-compose up -d'
-//             }
-//         }
-
-        stage('执行UI测试') {
+        stage('启动 Docker 运行环境') {
             steps {
-//                 sh 'docker run --rm -v $WORKSPACE:/app python:3.9 bash -c "pip install -r /app/requirements.txt && pytest /app/tests --alluredir=${REPORT_DIR}"'
-                sh '/Library/Frameworks/Python.framework/Versions/3.8/bin/python3.8 -m pytest'
+                sh 'docker-compose up -d'  // 启动 Python 运行环境和 Allure
             }
         }
 
-//         stage('生成测试报告') {
+        stage('安装依赖') {
+            steps {
+                sh 'docker exec python-runner pip install -r /app/requirements.txt'
+            }
+        }
+
+        stage('执行 API 测试') {
+            steps {
+                sh 'docker exec python-runner pytest '
+            }
+        }
+
+//         stage('生成 Allure 报告') {
 //             steps {
-//                 sh 'allure generate ${REPORT_DIR} -o allure-report --clean'
+//                 sh 'docker exec allure-server allure generate /app/allure-results -o /app/allure-report --clean'
 //             }
 //         }
-
-//         stage('存档并发送通知') {
+//
+//         stage('存档并发布 Allure 报告') {
 //             steps {
 //                 archiveArtifacts artifacts: 'allure-report/**', fingerprint: true
-//                 mail to: 'mforward@126.com',
-//                      subject: "接口测试报告",
-//                      body: "接口测试完成，请查看测试报告: ${BUILD_URL}/allure-report"
-//                      body: "接口测试完成，请查看测试报告:"
+//                 echo "Allure 报告地址: http://服务器IP:5050"
 //             }
 //         }
 
-//         stage('关闭测试环境') {
-//             steps {
-//                 sh 'docker-compose down'
-//             }
-//         }
+        stage('关闭 Docker 运行环境') {
+            steps {
+                sh 'docker-compose down'  // 释放 Docker 资源
+            }
+        }
     }
 }
-

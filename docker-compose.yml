@@ -17,33 +17,19 @@
 # volumes:  # 定义 Docker 数据卷（可选）
 #  my_volume:
 services:
-  mysql:
-    image: mysql:5.7
-    container_name: mysql_db
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: testdb
-      MYSQL_USER: testuser
-      MYSQL_PASSWORD: testpass
-    ports:
-      - "3306:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
-
-  python:
+  python-env:
     image: python:3.8
-    container_name: python_env
-    restart: always
-    working_dir: /app
+    container_name: python-runner
     volumes:
-      - .:/app
-    command: >
-      bash -c "
-      pip install --no-cache-dir selenium pytest allure-pytest pytest-xdist pytest-rerunfailures pytest-ordering pillow ddddocr pyyaml requests opencv-python &&
-      tail -f /dev/null"
-    depends_on:
-      - mysql
+      - .:/app  # 将当前目录 . 挂载到容器内的 /app 目录
+    working_dir: /app
+    entrypoint: tail -f /dev/null  # 让容器保持运行
 
-volumes:
-  mysql_data:
+#  allure:
+#    image: frankescobar/allure-docker-service
+#    container_name: allure-server
+#    ports:
+#      - "5050:5050"  # 访问 Allure 报告
+#    volumes:
+#      - ./report/allure-results:/app/allure-results  # 共享 Allure 结果
+#      - ./report/allure-report:/app/allure-report  # 共享 Allure HTML 报告
