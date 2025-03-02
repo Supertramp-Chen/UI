@@ -21,7 +21,7 @@ pipeline {
         stage('执行UI测试') {
             steps {
 //                 sh 'docker run --rm -v $WORKSPACE:/app python:3.9 bash -c "pip install -r /app/requirements.txt && pytest /app/tests --alluredir=${REPORT_DIR}"'
-                sh 'python3.8 -m pytest'
+                sh '/Library/Frameworks/Python.framework/Versions/3.8/bin/python3.8 -m pytest'
             }
         }
 
