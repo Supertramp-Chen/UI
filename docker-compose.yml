@@ -1,0 +1,49 @@
+# version: '3.8'  # 指定 Docker Compose 版本 -已经不需要
+
+# services:       # 定义多个服务
+#  service_name: # 这里是你的服务名称
+#    image:      # 运行容器所需的镜像
+#    container_name: # 给容器起个名字（可选）
+#    restart: always # 失败时重启（可选）
+#    ports:      # 端口映射（宿主机:容器）
+#      - "宿主机端口:容器端口"
+#    environment:  # 配置环境变量
+#      - KEY=VALUE
+#    volumes:    # 数据持久化（文件映射）
+#      - 宿主机目录:容器目录
+#    depends_on: # 依赖关系（某个服务要在另一个服务后启动）
+#      - other_service
+
+# volumes:  # 定义 Docker 数据卷（可选）
+#  my_volume:
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: testuser
+      MYSQL_PASSWORD: testpass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  python:
+    image: python:3.8
+    container_name: python_env
+    restart: always
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: >
+      bash -c "
+      pip install --no-cache-dir selenium pytest allure-pytest pytest-xdist pytest-rerunfailures pytest-ordering pillow ddddocr pyyaml requests opencv-python &&
+      tail -f /dev/null"
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data:
