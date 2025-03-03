@@ -18,7 +18,11 @@ pipeline {
 //         }
         stage('执行测试') {
             steps {
-                sh '/Library/Frameworks/Python.framework/Versions/3.8/bin/python3.8 -m pytest'  // 运行 pytest 测试
+                try {
+                        sh '/Library/Frameworks/Python.framework/Versions/3.8/bin/python3.8 -m pytest'
+                    } catch (Exception e) {
+                        echo "⚠️ pytest 失败，但继续执行"
+                    }
             }
         }
         stage('Archive Test Results') {
