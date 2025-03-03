@@ -22,5 +22,41 @@ pipeline {
             }
         }
     }
-
+    post {
+        success {
+            dingTalk (
+                robot: "YOUR_DINGTALK_ROBOT",
+                type: "MARKDOWN",
+                title: "🎉 Jenkins 构建成功",
+                text: "**Jenkins 构建成功**\n\n"
+                    + "> **任务**: ${env.JOB_NAME}\n"
+                    + "> **编号**: ${env.BUILD_NUMBER}\n"
+                    + "> **详情**: [点击查看](${env.BUILD_URL})\n"
+            )
+        }
+        failure {
+            dingTalk (
+                robot: "YOUR_DINGTALK_ROBOT",
+                type: "MARKDOWN",
+                title: "❌ Jenkins 构建失败",
+                text: "**Jenkins 构建失败** 🚨🚨🚨\n\n"
+                    + "> **任务**: ${env.JOB_NAME}\n"
+                    + "> **编号**: ${env.BUILD_NUMBER}\n"
+                    + "> **详情**: [点击查看](${env.BUILD_URL})\n"
+                    + "> **请尽快检查错误日志！**"
+            )
+        }
+        unstable {
+            dingTalk (
+                robot: "YOUR_DINGTALK_ROBOT",
+                type: "MARKDOWN",
+                title: "⚠️ Jenkins 构建不稳定",
+                text: "**Jenkins 构建不稳定** ⚠️⚠️⚠️\n\n"
+                    + "> **任务**: ${env.JOB_NAME}\n"
+                    + "> **编号**: ${env.BUILD_NUMBER}\n"
+                    + "> **详情**: [点击查看](${env.BUILD_URL})\n"
+                    + "> **请检查测试用例或代码质量！**"
+            )
+        }
+    }
 }
