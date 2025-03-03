@@ -18,7 +18,7 @@ pipeline {
 //         }
         stage('执行测试') {
             steps {
-                sh 'python3.8 -m pytest'  // 运行 pytest 测试
+                sh '/Library/Frameworks/Python.framework/Versions/3.8/bin/python3.8 -m pytest'  // 运行 pytest 测试
             }
         }
     }
