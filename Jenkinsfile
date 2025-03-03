@@ -18,7 +18,7 @@ pipeline {
 //         }
         stage('执行测试') {
             steps {
-                sh 'pytest'  // 运行 pytest 测试
+                sh 'python3.8 -m pytest'  // 运行 pytest 测试
             }
         }
     }
