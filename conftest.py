@@ -1,5 +1,7 @@
 import pytest
 from selenium import webdriver
+from common.options_chrome import options1
+
 '''装饰器+生成器 实现全局管理driver函数
 测试用例和其他函数写了drivers作为参数 
     就获得yield driver返回的driver实例
@@ -22,9 +24,9 @@ Selenium 4.6+ 版本 以后，不需要手动下载 ChromeDriver
 创建浏览器实例 + yield driver + 关闭浏览器'''
 @pytest.fixture(scope='session', autouse=True)
 def drivers():
-    driver = webdriver.Chrome()
+    # driver = webdriver.Chrome()
     '''使用自定义的 启动参数来启动浏览器'''
-    # driver = webdriver.Chrome(options=options1())
+    driver = webdriver.Chrome(options=options1())
     driver.maximize_window()
     yield driver
     driver.quit()
