@@ -1,0 +1,35 @@
+# version: '3.8'  # 指定 Docker Compose 版本 -已经不需要
+
+# services:       # 定义多个服务
+#  service_name: # 这里是你的服务名称
+#    image:      # 运行容器所需的镜像
+#    container_name: # 给容器起个名字（可选）
+#    restart: always # 失败时重启（可选）
+#    ports:      # 端口映射（宿主机:容器）
+#      - "宿主机端口:容器端口"
+#    environment:  # 配置环境变量
+#      - KEY=VALUE
+#    volumes:    # 数据持久化（文件映射）
+#      - 宿主机目录:容器目录
+#    depends_on: # 依赖关系（某个服务要在另一个服务后启动）
+#      - other_service
+
+# volumes:  # 定义 Docker 数据卷（可选）
+#  my_volume:
+services:
+  python-env:
+    image: python:3.8
+    container_name: python-runner
+    volumes:
+      - .:/app  # 将当前目录 . 挂载到容器内的 /app 目录
+    working_dir: /app
+    entrypoint: tail -f /dev/null  # 让容器保持运行
+
+#  allure:
+#    image: frankescobar/allure-docker-service
+#    container_name: allure-server
+#    ports:
+#      - "5050:5050"  # 访问 Allure 报告
+#    volumes:
+#      - ./report/allure-results:/app/allure-results  # 共享 Allure 结果
+#      - ./report/allure-report:/app/allure-report  # 共享 Allure HTML 报告
