@@ -4,7 +4,7 @@ from config.conf import ConfigManager
 import time
 from common.image_identify import image_identify
 """
-test_pytest.fixture + 生成器yield   一起实现了和unittest的setup，teardown一样的前置启动，后置清理的装饰器
+没有使用ddt数据驱动的登陆测试
 """
 class TestSearch:
     @pytest.fixture(scope='function', autouse=True)

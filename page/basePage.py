@@ -26,6 +26,7 @@ class PageElement(object):
             raise ValueError("Please specify a locator")
         if len(kwargs) > 1:
             raise ValueError("Please specify only one locator")
+        """使用迭代器，生成器来让(id='kw')变成By.id, 'kw'两个单独的参数"""
         k, v = next(iter(kwargs.items()))
         self.locator = (_LOCATOR_MAP[k], v)
         self.has_context = bool(context)
