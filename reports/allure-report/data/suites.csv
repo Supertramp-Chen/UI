@@ -1,3 +1,6 @@
 "DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","19851","test_001[admin-123456]","case.wms","Tue Mar 04 19:04:47 CST 2025","broken","Tue Mar 04 19:05:07 CST 2025","","test_login_wms","",""
-"","19633","test_001[user1434sfdsvfdsfffffffffffg-pass1sdgggggggggggggggggggggggg]","case.wms","Tue Mar 04 19:04:48 CST 2025","passed","Tue Mar 04 19:05:07 CST 2025","","test_login_wms","",""
+"
+            在一个def用例里面，
+            如果有一个assert执行失败，
+            整个用例都会停下来，所以要将用例原子化一些
+        ","12826","test_001","case.wms","Sat May 31 04:51:46 CST 2025","passed","Sat May 31 04:51:59 CST 2025","TestSearch","test_duoyuansu_wms","",""

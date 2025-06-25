@@ -1,1 +1,1 @@
-[{"uid":"eda4ccd023a8e38e","name":"test_001[admin-123456]","time":{"start":1741086287955,"stop":1741086307806,"duration":19851},"status":"broken","severity":"normal"},{"uid":"ecaa0f4b1fc1b1f6","name":"test_001[user1434sfdsvfdsfffffffffffg-pass1sdgggggggggggggggggggggggg]","time":{"start":1741086288284,"stop":1741086307917,"duration":19633},"status":"passed","severity":"normal"}]
+[{"uid":"74fbc092664d6f7d","name":"test_001","time":{"start":1748638306446,"stop":1748638319272,"duration":12826},"status":"passed","severity":"normal"}]
